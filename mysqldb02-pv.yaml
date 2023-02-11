@@ -11,5 +11,5 @@ spec:
   accessModes:
     - ReadWriteMany
   nfs:
-    server: 192.168.183.76
+    server: 172.16.141.129
     path: /mnt/nfs-data/mysqldb02-data

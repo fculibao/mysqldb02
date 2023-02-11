@@ -1,0 +1,35 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: mysqldb02-server
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: mysqldb02-server
+  template:
+    metadata:
+      labels:
+        app: mysqldb02-server
+    spec:
+      containers:
+        - name: mysqldb02-server
+          image: fculibao/m2lab-db:V1
+          volumeMounts:
+            - name: mysqldb02-pv
+              mountPath: /var/lib/mysql
+          ports:
+            - containerPort: 3306
+              name: mysqldb02-port
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysqldb02-secret
+                  key: db-pass
+      volumes:
+        - name: mysqldb02-pv
+          persistentVolumeClaim:
+            claimName: mysqldb02-pvc

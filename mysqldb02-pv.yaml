@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: mysqldb02-pv
+  labels:
+    type: local
+spec:
+  storageClassName: mysqldb02-sc
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteMany
+  nfs:
+    server: 192.168.183.76
+    path: /mnt/nfs-data/mysqldb02-data
